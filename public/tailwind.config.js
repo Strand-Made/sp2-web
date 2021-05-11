@@ -59,7 +59,9 @@ module.exports = {
     },
     extend: {
       backgroundImage: (theme) => ({
-        "wave-pattern": "url('/assets/waves.svg')",
+        "wave-pattern": "url('/public/assets/waves.svg')",
+        "wave-pattern-2": "url('/public/assets/wave-haikei.svg')",
+        "ad-wave": "url('/public/assets/ad-wave.svg')",
       }),
     },
   },

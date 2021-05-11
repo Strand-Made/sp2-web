@@ -15,14 +15,9 @@ function adminLoginHandler(event) {
   event.preventDefault();
   const passwordVal = passwordInp.value.trim();
   const emailVal = emailInp.value.trim();
-  console.log("helo");
 
   if (emailVal.length === 0 || passwordVal.length === 0) {
-    return messageBox(
-      errorContainer,
-      "bg-red-300 text-red-900 p-3",
-      "Please check your inputs"
-    );
+    return messageBox(errorContainer, "warning", "Please check your inputs");
   }
 
   loggedIn(emailVal, passwordVal);
@@ -30,7 +25,7 @@ function adminLoginHandler(event) {
 
 async function loggedIn(username, password) {
   let newUrl = url + "/auth/local";
-  const data = JSON.stringify({ identifier: username, password: password });
+  const data = JSON.stringify({ identifier: username, password });
 
   const options = {
     method: "POST",
@@ -51,7 +46,7 @@ async function loggedIn(username, password) {
     } else if (result.error) {
       return messageBox(
         errorContainer,
-        "bg-red-300 text-red-900 p-3",
+        "error",
         "Sorry, I can't seem to recognize these login details"
       );
     }
@@ -59,7 +54,7 @@ async function loggedIn(username, password) {
     console.log(error);
     messageBox(
       errorContainer,
-      "bg-red-300 text-red-900 p-3",
+      "error",
       "An unexpected error has occured, please try again later"
     );
   }

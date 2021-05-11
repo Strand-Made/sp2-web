@@ -22,12 +22,7 @@ if (!id) {
     console.log(result);
     displayProduct(container, result);
   } catch (error) {
-    console.log(error);
-    messageBox(
-      container,
-      "bg-red-300 text-red-900 p-3 rounded",
-      "An error has occured!"
-    );
+    messageBox(container, "error", "An error has occured!");
   }
 })();
 // function creating the html
@@ -46,28 +41,41 @@ function displayProduct(container, product) {
     favClass = "bi-heart-fill";
   }
   container.innerHTML = `
-                            <div class="flex flex-col mt-2">
-                                <div class="flex flex-col">
+                          <div class="grid mt-3 md:grid-col-3 md:grid-row-2 gap-2 lg:place-items-center">
+                                <div class="flex flex-col md:w-full ">
                                     <h1 class="text-2xl mb-2 font-medium">${product.title}</h1>
-                                    <img class="max-w-md rounded" src="${productImage}" alt="${product.title}" />
-                                </div>
-                                <div class="">
-                                    <div class="flex flex-row justify-between my-2">
-                                        <p class="text-2xl font-bold text-purple-900">$ ${product.price}</p>
-                                        <i class="bi ${favClass} mr-3 cursor-pointer text-red-800 text-xl" aria-label="add to favourites" data-id="${product.id}"  ></i>
+                                    <img class="rounded w-full border-2" src="${productImage}" alt="${product.title}" />
+                                </div >
+                                  <div class="md:col-start-2 md:row-start-1 md:col-end-2 bg-gray-100 rounded md:h-36 md:place-self-center md:justify-self-center md:p-3">
+                                    <div class="flex flex-row justify-between m-2">
+                                        <p class="text-2xl font-bold text-purple-900 md:text-xl">$ ${product.price}</p>
+                                        <span class="bi ${favClass} cursor-pointer text-red-800 text-xl" aria-label="add to favourites" data-id="${product.id}"  ></span>
                                     </div>
-                                    <div class="flex flex-row justify-center">
-                                        <button id="add-to-cart" class="bg-yellow-400 hover:bg-yellow-600 shadow-md font-medium text-yellow-900 text-center rounded order-2 p-3 m-2 w-40" data-id="${product.id}" data-price=${product.price} >Add to cart</button>
-                                        <button class="bg-gray-100 hover:bg-yellow-300 shadow-md font-medium text-gray-900 text-center rounded order-1 p-3 m-2 w-36"> Click & Collect </button>
-                                    </div>
-                                </div>
-                                <div class="my-3">
-                                    <h2 class="text-xl font-medium text-center">Description</h2>
-                                    <p class="leading-relaxed max-w-prose text-gray-700 text-md">${product.description}</p>
+                                      <div class="flex flex-row justify-center">
+                                        <button id="add-to-cart" class="btn-yellow order-2 p-3 m-2 w-40 md:text-xs" data-id="${product.id}" data-price=${product.price} >Add to cart</button>
+                                        <button class=" btn-gray order-1"> Click & Collect </button>
+                                      </div>
+                                      <div class="flex justify-between items-baseline mx-1"> 
+                                        <div class="flex items-baseline">
+                                            <span class="bi bi-truck mr-1" aria-label="Delivery time"></span><p class="text-gray-500 text-xs"> 2-3 days </p>
+                                         </div>
+                                        
+                                        <div class="flex justify-end">
+                                          <p class="text-xs text-gray-500">In Storage (100+)</p>
+                                        </div>
+                                      </div>
+                                       
+                                  </div>
+                                
+                                  <div class="my-3 md:col-start-2 md:row-start-1 md:row-end-1 md:col-end-2 md:place-self-start md:justify-self-center">
+                                  <div class="bg-gray-100 md:w-full">
+                                    <h2 class="text-l font-medium text-center">Product info</h2>
+                                  </div>
+                                    <p class="leading-relaxed max-w-prose text-gray-700 text-sm">${product.description}</p>
                                  </div>
                             </div>
     `;
-  const favButton = document.querySelector("div div div i");
+  const favButton = document.querySelector("div div div span");
   favButton.addEventListener("click", addToFav);
   const cartButton = document.querySelector("div div div #add-to-cart");
   cartButton.addEventListener("click", addItemToCart);
@@ -95,7 +103,7 @@ async function getSimiliarProducts(id) {
     // FIX ARRAY LENGTH !!!!!!!!!!!!
     console.log("Things to do here !!", "Fix array length");
   } catch (error) {
-    console.log(error);
+    messageBox(container, "error occured getting suggestions. ");
   }
 }
 // create similar products

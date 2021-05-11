@@ -31,6 +31,8 @@ async function getDetails() {
     description.value = result.description;
     price.value = result.price;
     featured.checked = result.featured;
+    document.title = `Edit ${result.title} | HomeSmart`;
+
     deleteProduct(id);
   } catch (error) {
     console.log(error);
@@ -46,7 +48,6 @@ function editProduct(event) {
   const descriptionValue = description.value.trim();
   const priceValue = price.value;
   const featuredValue = featured.checked;
-  const imageValue = image.value;
   const prodIdVal = productId.value;
   console.log(featuredValue);
 
@@ -55,30 +56,24 @@ function editProduct(event) {
     descriptionValue.length === 10 ||
     priceValue === 0
   ) {
-    return messageBox(
-      errorContainer,
-      "bg-red-200 text-red-900 p-3",
-      "Please Check your inputs. "
-    );
+    return messageBox(errorContainer, "warning", "Please check your inputs.");
   }
   updateProduct(
     titleValue,
     descriptionValue,
     priceValue,
-    idValue,
-    featuredValue,
-    imageValue
+    prodIdVal,
+    featuredValue
   );
 }
 
-async function updateProduct(title, description, price, id, featured, image) {
+async function updateProduct(title, description, price, id, featured) {
   let newUrl = url + "/products/" + id;
   const data = JSON.stringify({
     title: title,
     description: description,
     price: price,
     featured: featured,
-    image: image,
   });
   const token = getToken();
 
@@ -95,13 +90,13 @@ async function updateProduct(title, description, price, id, featured, image) {
     const response = await fetch(newUrl, options);
     const result = await response.json();
     if (result.updated_at) {
-      messageBox(
-        errorContainer,
-        "bg-yellow-300 text-yellow-900 p-3 rounded",
-        "Update Successful"
-      );
+      messageBox(errorContainer, "success", "Update Successful");
     }
   } catch (error) {
-    console.log(error);
+    messageBox(
+      errorContainer,
+      "error",
+      "An error ocurred when updating product. Please try again"
+    );
   }
 }

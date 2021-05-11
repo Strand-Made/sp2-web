@@ -1,8 +1,10 @@
-import { url, getStorage, clearStorage } from "./api/data.js";
+import { url, getStorage, clearStorage, saveToStorage } from "./api/data.js";
 import { createNav } from "./components/navbar/mainNav.js";
+import messageBox from "./components/messageBox.js";
 
 createNav();
 const container = document.querySelector("#cart");
+const cartButtonsContainer = document.querySelector("#cart-actions");
 
 function getCart() {
   const cartKey = "cart";
@@ -20,6 +22,7 @@ function getCart() {
                                 </div>
                             </div>`;
     totalPrice.innerHTML = "<p>0</p>";
+    cartButtonsContainer.classList.add("hidden");
   } else {
     const cartIds = cartItems.map((item) => item.id);
     cartIds.map((product) => {
@@ -44,38 +47,62 @@ async function getItems(id) {
     const result = await response.json();
     createCartItems(result);
   } catch (error) {
-    console.log(error);
+    messageBox(
+      container,
+      "error",
+      "Error fetching products, Please try again later"
+    );
   }
 }
 
 // create html for products
-function createCartItems(product) {
-  const image = url + product.image.formats.medium.url;
+function createCartItems(products) {
+  const image = url + products.image.formats.medium.url;
   container.innerHTML += ` 
-  <div class="grid w-full">
-    <div> 
-        <h5 class="text-base text-medium text-purple-900">${product.title} </h5> 
+  <li class="w-full border-b-2 border-gray-50 p-2 flex items-center justify-between">
+    <div class=" flex flex-row mt-3">
+      <img class="w-20 mr-1 rounded md:w-36" src="${image}" alt="${products.title}"/>
+      <div class="flex flex-col justify-between">
+          <div class="flex flex-col items-center justify-center"> 
+            <h5 class="text-l font-medium text-gray-900 mr-3">${products.title} </h5> 
+          </div>
+          <div> 
+            <p class="text-sm text-gray-600 w-80 truncate">${products.description} </p> 
+          </div>
+          <div class="justify-items-end w-full">
+            <p class="text-sm font-medium text-purple-700 ">$ ${products.price} </p>
+          </div>
+        </div>
     </div>
-    <img class="w-32 mr-1 rounded" src="${image}" alt="${product.title}"/>
-    <div class="flex flex-col justify-between">    
-        <div class="flex flex-row justify-between items-center">
-              <p class="font-medium text-base text-purple-900 ">$ ${product.price} </p>
-              <div class="flex items-end">
-                <span id="#remove-item" class="bi bi-x-circle-fill mr-3 text-m text-red-800 hover:text-red-600 cursor-pointer p-1 font-bolder" title="remove product" aria-label="remove item" data-id="${product.id}" ></span>
-              </div>
-         </div>
-      </div>
+    <div class="justify-items-center items-center">
+      <span id="#remove-item" class="removeItem bi bi-x-circle-fill text-m text-red-800 block hover:text-red-600 cursor-pointer font-bolder"
+        title="remove product" aria-label="remove item" data-id="${products.id}" ></span>
     </div>
+  </li>
       
       `;
 
-  //   const removeButton = document.querySelectorAll("div div div div span");
-  //   removeButton.addEventListener("click", removeProduct);
+  const removeButton = document.querySelectorAll(".removeItem");
+  removeButton.forEach((button) => {
+    button.addEventListener("click", removeProduct);
+  });
 }
 
 function removeProduct() {
+  const tokenKey = "cart";
   const id = this.dataset.id;
-  console.log(id);
+
+  const cartArray = getStorage(tokenKey);
+  const productExst = cartArray.find(function (product) {
+    return product.id === id;
+  });
+  // if the product exist, delete it and update storage
+  if (productExst) {
+    const newArray = cartArray;
+    newArray.pop();
+    saveToStorage(tokenKey, newArray);
+    window.location.reload();
+  }
 }
 
 function clearCart(cartKey) {

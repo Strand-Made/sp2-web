@@ -28,23 +28,19 @@ export async function deleteProduct(id) {
           const result = await response.json();
           console.log(result);
           if (result.title) {
-            return messageBox(
-              errorContainer,
-              "bg-yellow-400 text-yellow-900 rounded p-3 mx-2",
-              "Delete Successful"
-            );
+            return messageBox(errorContainer, "success", "Delete Successful");
           }
           if (result.error) {
             return messageBox(
               errorContainer,
-              "bg-red-400 text-red-900 rounded p-3 mx-2",
+              "error",
               "Unauthorized action. Please contact your admin"
             );
           }
         } catch (error) {
           messageBox(
             errorContainer,
-            "bg-red-400 text-red-900 rounded p-3 mx-2",
+            "error",
             "An error has occured when trying to delete"
           );
         }

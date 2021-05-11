@@ -1,10 +1,12 @@
 import { createNav } from "./components/navbar/mainNav.js";
 import { url, getStorage, clearStorage } from "./api/data.js";
+import { addItemToCart } from "./data/createProduct.js";
+import messageBox from "./components/messageBox.js";
 
 // create navbar
 createNav();
 const favouriteKey = "favourites";
-const container = document.querySelector("#products-container");
+const container = document.querySelector("#products-list");
 
 function getFavourites() {
   const favourites = getStorage(favouriteKey);
@@ -60,31 +62,41 @@ async function getItems(id) {
   try {
     const response = await fetch(newUrl);
     const result = await response.json();
-    console.log(result);
     createFavProducts(result);
   } catch (error) {
-    console.log(error);
+    messageBox(
+      container,
+      "error",
+      "Error occured getting favourites. Please try again later"
+    );
   }
 }
 
 function createFavProducts(products) {
   const image = url + products.image.formats.medium.url;
-  container.innerHTML += ` <div class=" flex flex-row mt-3 justify-center">
-  <img class="w-5/12 mr-1 rounded" src="${image}" alt="${products.title}"/>
-  <div class="flex w-6/12 flex-col justify-between">
-      <div> 
-          <h5 class="text-xl text-purple-900">${products.title} </h5> 
-      </div>
-      <div class="flex flex-row justify-between w-">
-          <p class="font-bold text-xl text-purple-900 ">$ ${products.price} </p>
-          
-          <div class="flex justify-center items-center">
-          <i data-id="${products.id}" class="bi-heart-fill mr-3"></i>
-          <button class=""> Add to cart </button>
+  container.innerHTML += ` 
+  <li class="border-b-2 border-gray-50 p-2">
+    <div class=" flex flex-row mt-3 justify-center">
+      <img class="w-20 mr-1 rounded md:w-36" src="${image}" alt="${products.title}"/>
+      <div class="flex w-6/12 flex-col justify-between">
+          <div> 
+            <h5 class="text-l font-medium text-gray-900">${products.title} </h5> 
           </div>
-      </div>
-  </div>
-</div>
+          <div class="flex flex-roww justify-between w-">
+            <p class="text-sm font-medium text-gray-700 ">$ ${products.price} </p>
+            
+            <div class="flex justify-center items-center">
+              <span class="bi-heart-fill mr-3" data-id="${products.id}" ></span>
+              <button class="btn-yellow w-30 p-0 py-1 px-2" data-id="${products.id}" data-price="${products.price}"> Add to cart </button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </li>
   
   `;
+  const addToCartBtn = document.querySelectorAll("div div div div button");
+  addToCartBtn.forEach((button) => {
+    button.addEventListener("click", addItemToCart);
+  });
 }

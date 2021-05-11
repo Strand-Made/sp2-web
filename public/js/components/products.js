@@ -20,7 +20,7 @@ export async function getProducts(isFeatured, prodContainer) {
       return createProducts(featuredList, container);
     }
   } catch (error) {
-    messageBox(container, "bg-red-900 text-red-100", "An error has occured");
+    messageBox(container, "error", "An error has occured");
 
     console.log(error);
   }

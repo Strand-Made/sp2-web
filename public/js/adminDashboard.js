@@ -12,7 +12,7 @@ const image = document.querySelector("#product_image");
 const featured = document.querySelector("#product_featured");
 const errorContainer = document.querySelector("#form-error");
 const adminToken = getToken();
-console.log(adminToken);
+
 // if no token in storage, redirect to login page
 if (!adminToken.length) {
   window.location.href = "admin.html";
@@ -20,33 +20,32 @@ if (!adminToken.length) {
 // Create product
 form.addEventListener("submit", postProduct);
 
+// on submit form
 function postProduct(event) {
   event.preventDefault();
   const titleVal = title.value.trim();
   const descriptionVal = description.value.trim();
   const priceVal = price.value;
-  const imageVal = image.value;
+  const imageFile = image.value;
   const featuredVal = featured.checked;
 
+  // Check if there is values in the inputs
   if (titleVal.length === 0 || descriptionVal.length === 5) {
-    return messageBox(
-      errorContainer,
-      "bg-yellow-300 text-yellow-900 p-3 rounded",
-      "Please check your values."
-    );
+    return messageBox(errorContainer, "warning", "Please check your values.");
   }
 
-  createNewProduct(titleVal, descriptionVal, priceVal, imageVal, featuredVal);
+  createNewProduct(titleVal, descriptionVal, priceVal, imageFile, featuredVal);
 }
 
 // post new product
 async function createNewProduct(title, description, price, image, featured) {
   let newUrl = url + "/products";
+
   const data = JSON.stringify({
     title: title,
     description: description,
     price: price,
-    image: image,
+    image_url: image,
     featured: featured,
   });
   const token = getToken();
@@ -61,7 +60,23 @@ async function createNewProduct(title, description, price, image, featured) {
   try {
     const response = await fetch(newUrl, options);
     const result = await response.json();
-  } catch (error) {}
+    console.log(result);
+
+    if (result.title) {
+      updateWindow(
+        messageBox(
+          errorContainer,
+          "success",
+          "Upload Successful! Window will reload in 3 seconds"
+        )
+      );
+    } else if (result.error) {
+      messageBox(errorContainer, "error", "An error occured creating product");
+    }
+  } catch (error) {
+    console.log("Error occured when fetching", error);
+    messageBox(errorContainer, "error", "An error has occured");
+  }
 }
 
 // Get products and create html
@@ -73,37 +88,36 @@ async function createNewProduct(title, description, price, image, featured) {
   try {
     const response = await fetch(newUrl);
     const result = await response.json();
+    console.log(result);
 
     displayAdminProducts(result, productContainer);
   } catch (error) {
-    console.log(error);
-    messageBox(
-      errorContainer,
-      "bg-red-200 text-red-900 rounded",
-      "An error has occured"
-    );
+    messageBox(errorContainer, "error", "An error has occured");
   }
 })();
 
 function displayAdminProducts(array, container) {
   container.innerHTML = "";
   array.map((product) => {
-    const productImgSrc = url + `${product.image.formats.small.url}`;
+    let productImgSrc = product.image_url;
+    // if the product dont have a image url go to thumbnail url
+    if (!product.image_url) {
+      productImgSrc = url + `${product.image.formats.thumbnail.url}`;
+    }
 
-    container.innerHTML += `<div class=" flex flex-row justify-center my-2">
-                                    <img class="w-4/12 mr-1 rounded" src="${productImgSrc}" alt="${product.title}"/>
-                                    <div class="flex w-6/12 flex-col justify-between">
+    container.innerHTML += `<div class="flex flex-row md:flex-col md:w-auto p-3 my-2 sm:mx-2">
+                                    <div class="w-40 mr-2 md:w-32 md:h-24">
+                                      <img class="rounded object-contain" src="${productImgSrc}" alt="${product.title}"/>
+                                    </div>
+                                    <div class="flex w-6/12 md:w-full flex-col justify-between">
                                         <div> 
                                             <h5 class="text-m text-purple-900">${product.title} </h5> 
-                                            
                                         </div>
-                                        <div class="flex flex-row justify-between w-">
-                                            <p class=" text-m text-purple-900 ">$ ${product.price} </p>
+                                        <div class="flex flex-row justify-between w-full">
+                                            <p class="text-m md:text-sm text-purple-900 ">$ ${product.price} </p>
                                             
                                             <div class="flex justify-center items-center">
-                                
-  
-                                                <a href="editProduct.html?id=${product.id}" id="edit-product" class="btn-yellow cursor-pointer">Edit </a> 
+                                                <a href="editProduct.html?id=${product.id}" id="edit-product" class="btn-yellow cursor-pointer text-sm">Edit </a> 
                                             </div>
                                         </div>
                                     </div>
@@ -113,4 +127,12 @@ function displayAdminProducts(array, container) {
                                 
                                 `;
   });
+}
+
+// reload window after 3 seconds
+function updateWindow(message) {
+  message;
+  setTimeout(() => {
+    window.location.reload();
+  }, 3000);
 }
