@@ -1,7 +1,7 @@
-import { url, getToken } from "./api/data.js";
-import { createNav } from "./components/navbar/mainNav.js";
-import messageBox from "./components/messageBox.js";
-import { deleteProduct } from "./components/products/deleteProduct.js";
+import { url, getToken } from "../../api/data.js";
+import { createNav } from "../../components/navbar/mainNav.js";
+import messageBox from "../../components/messageBox.js";
+import { deleteProduct } from "../../components/products/deleteProduct.js";
 // create nav
 createNav();
 
@@ -17,7 +17,6 @@ const title = document.querySelector("#product_title");
 const productId = document.querySelector("#product_id");
 const description = document.querySelector("#product_description");
 const price = document.querySelector("#product_price");
-const image = document.querySelector("#product_image");
 const featured = document.querySelector("#product_featured");
 const errorContainer = document.querySelector("#form-error");
 
@@ -49,8 +48,6 @@ function editProduct(event) {
   const priceValue = price.value;
   const featuredValue = featured.checked;
   const prodIdVal = productId.value;
-  console.log(featuredValue);
-
   if (
     titleValue.length === 0 ||
     descriptionValue.length === 10 ||

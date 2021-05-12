@@ -1,5 +1,5 @@
-import { url } from "../api/data.js";
-import messageBox from "./messageBox.js";
+import { url } from "../../api/data.js";
+import messageBox from "../../utilities/messageBox.js";
 
 export async function getHeroImage() {
   let newUrl = url + "/home";

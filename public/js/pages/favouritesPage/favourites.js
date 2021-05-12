@@ -1,7 +1,7 @@
-import { createNav } from "./components/navbar/mainNav.js";
-import { url, getStorage, clearStorage } from "./api/data.js";
-import { addItemToCart } from "./data/createProduct.js";
-import messageBox from "./components/messageBox.js";
+import { createNav } from "../../components/navbar/mainNav.js";
+import { url, getStorage, clearStorage } from "../../api/data.js";
+import { addItemToCart } from "../../data/createProduct.js";
+import messageBox from "../../utilities/messageBox.js";
 
 // create navbar
 createNav();
@@ -73,11 +73,15 @@ async function getItems(id) {
 }
 
 function createFavProducts(products) {
-  const image = url + products.image.formats.medium.url;
+  let productImgSrc = products.image_url;
+  // if the product dont have a image url go to thumbnail url
+  if (!products.image_url) {
+    productImgSrc = url + `${products.image.formats.thumbnail.url}`;
+  }
   container.innerHTML += ` 
   <li class="border-b-2 border-gray-50 p-2">
     <div class=" flex flex-row mt-3 justify-center">
-      <img class="w-20 mr-1 rounded md:w-36" src="${image}" alt="${products.title}"/>
+      <a href="product.html?id=${products.id}"><img class="w-20 mr-1 rounded md:w-36" src="${productImgSrc}" alt="${products.title}"/></a>
       <div class="flex w-6/12 flex-col justify-between">
           <div> 
             <h5 class="text-l font-medium text-gray-900">${products.title} </h5> 
@@ -87,7 +91,7 @@ function createFavProducts(products) {
             
             <div class="flex justify-center items-center">
               <span class="bi-heart-fill mr-3" data-id="${products.id}" ></span>
-              <button class="btn-yellow w-30 p-0 py-1 px-2" data-id="${products.id}" data-price="${products.price}"> Add to cart </button>
+              <button class="btn-yellow w-20 text-xs p-0 py-1 px-2" data-title="${products.title}" data-id="${products.id}" data-price="${products.price}"> Add to cart </button>
             </div>
           </div>
         </div>

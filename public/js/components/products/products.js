@@ -1,6 +1,6 @@
-import { url, saveToStorage } from "../api/data.js";
-import { createProducts } from "../data/createProduct.js";
-import messageBox from "./messageBox.js";
+import { url, saveToStorage } from "../../api/data.js";
+import { createProducts } from "../products/createProduct.js";
+import messageBox from "../../utilities/messageBox.js";
 
 let featuredList = [];
 
@@ -12,7 +12,7 @@ export async function getProducts(isFeatured, prodContainer) {
     const result = await response.json();
 
     featuredList = result;
-    // filter out featured products
+    // if is featured is true, return only featured products else return all
     if (isFeatured) {
       featuredList = result.filter((product) => product.featured === true);
       return createProducts(featuredList, container);

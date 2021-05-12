@@ -1,6 +1,11 @@
-import { url, getStorage, clearStorage, saveToStorage } from "./api/data.js";
-import { createNav } from "./components/navbar/mainNav.js";
-import messageBox from "./components/messageBox.js";
+import {
+  url,
+  getStorage,
+  clearStorage,
+  saveToStorage,
+} from "../../api/data.js";
+import { createNav } from "../../components/navbar/mainNav.js";
+import messageBox from "../../utilities/messageBox.js";
 
 createNav();
 const container = document.querySelector("#cart");
@@ -57,24 +62,29 @@ async function getItems(id) {
 
 // create html for products
 function createCartItems(products) {
-  const image = url + products.image.formats.medium.url;
+  let productImgSrc = products.image_url;
+  // if the product dont have a image url go to thumbnail url
+  if (!products.image_url) {
+    productImgSrc = url + `${products.image.formats.thumbnail.url}`;
+  }
+
   container.innerHTML += ` 
-  <li class="w-full border-b-2 border-gray-50 p-2 flex items-center justify-between">
+  <li class="w-full border-b-2 border-gray-50 flex items-center justify-between">
     <div class=" flex flex-row mt-3">
-      <img class="w-20 mr-1 rounded md:w-36" src="${image}" alt="${products.title}"/>
+      <a href="product.html?id=${products.id}"><img class="w-20 mr-1 rounded md:w-36" src="${productImgSrc}" alt="${products.title}"/></a>
       <div class="flex flex-col justify-between">
-          <div class="flex flex-col items-center justify-center"> 
+          <div class="flex flex-col items-center justify-center md:items-start"> 
             <h5 class="text-l font-medium text-gray-900 mr-3">${products.title} </h5> 
           </div>
           <div> 
-            <p class="text-sm text-gray-600 w-80 truncate">${products.description} </p> 
+            <p class="text-sm text-gray-600 w-40 md:w-96 truncate">${products.description} </p> 
           </div>
           <div class="justify-items-end w-full">
             <p class="text-sm font-medium text-purple-700 ">$ ${products.price} </p>
           </div>
         </div>
     </div>
-    <div class="justify-items-center items-center">
+    <div class="justify-items-end items-end">
       <span id="#remove-item" class="removeItem bi bi-x-circle-fill text-m text-red-800 block hover:text-red-600 cursor-pointer font-bolder"
         title="remove product" aria-label="remove item" data-id="${products.id}" ></span>
     </div>

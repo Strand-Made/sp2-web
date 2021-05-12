@@ -4,5 +4,6 @@ export function mobileNav() {
   navbarToggle.addEventListener("click", () => {
     const navbar = document.querySelector("#navbar");
     navbar.classList.toggle("hidden");
+    navbar.classList.toggle("shadow-inner");
   });
 }

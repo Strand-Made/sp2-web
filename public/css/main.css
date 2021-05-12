@@ -17,6 +17,10 @@
     @apply transition duration-300 ease-in-out bg-purple-400 hover:bg-purple-600 text-purple-50 text-center font-medium rounded-lg shadow-lg hover:shadow-xl px-4 py-1;
   }
 
+  .btn-red {
+    @apply transition duration-300 ease-in-out bg-red-400 hover:bg-red-600 text-red-50 text-center font-medium rounded-lg shadow-lg hover:shadow-xl p-1;
+  }
+
   .btn-inputs {
     @apply transition duration-300 ease-in-out bg-gray-200 text-gray-900 text-xs hover:bg-gray-300 text-gray-500 text-center font-medium rounded-r-lg shadow-lg hover:shadow-xl px-4 py-1;
   }

@@ -1,6 +1,6 @@
-import { createNav } from "./components/navbar/mainNav.js";
-import { url, getToken } from "./api/data.js";
-import messageBox from "./components/messageBox.js";
+import { createNav } from "../../components/navbar.js";
+import { url, getToken } from "../../api/data.js";
+import messageBox from "../../utilities/messageBox.js";
 // create nav
 createNav();
 
@@ -80,7 +80,6 @@ async function createNewProduct(title, description, price, image, featured) {
 }
 
 // Get products and create html
-
 (async () => {
   const productContainer = document.querySelector("#edit-products-products");
   const errorContainer = document.querySelector("#form-error");
@@ -88,7 +87,6 @@ async function createNewProduct(title, description, price, image, featured) {
   try {
     const response = await fetch(newUrl);
     const result = await response.json();
-    console.log(result);
 
     displayAdminProducts(result, productContainer);
   } catch (error) {
@@ -96,6 +94,7 @@ async function createNewProduct(title, description, price, image, featured) {
   }
 })();
 
+// Create html for admin products
 function displayAdminProducts(array, container) {
   container.innerHTML = "";
   array.map((product) => {

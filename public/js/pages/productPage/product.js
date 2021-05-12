@@ -1,7 +1,10 @@
-import { url, getStorage } from "./api/data.js";
-import { createNav } from "./components/navbar/mainNav.js";
-import { addToFav, addItemToCart } from "./data/createProduct.js";
-import messageBox from "./components/messageBox.js";
+import { url, getStorage } from "../../api/data.js";
+import { createNav } from "../../components/navbar/mainNav.js";
+import {
+  addToFav,
+  addItemToCart,
+} from "../../components/products/createProduct.js";
+import messageBox from "../../utilities/messageBox.js";
 
 createNav();
 
@@ -29,7 +32,11 @@ if (!id) {
 function displayProduct(container, product) {
   document.title = `HomeSmart | ${product.title}`;
 
-  const productImage = url + `${product.image.formats.small.url}`;
+  let productImgSrc = product.image_url;
+  // if the product dont have a image url go to thumbnail url
+  if (!product.image_url) {
+    productImgSrc = url + `${product.image.formats.thumbnail.url}`;
+  }
   const favourites = getStorage("favourites");
   let favClass = "bi-heart";
   // if prod is in favs return it
@@ -41,20 +48,24 @@ function displayProduct(container, product) {
     favClass = "bi-heart-fill";
   }
   container.innerHTML = `
-                          <div class="grid mt-3 md:grid-col-3 md:grid-row-2 gap-2 lg:place-items-center">
-                                <div class="flex flex-col md:w-full ">
-                                    <h1 class="text-2xl mb-2 font-medium">${product.title}</h1>
-                                    <img class="rounded w-full border-2" src="${productImage}" alt="${product.title}" />
-                                </div >
-                                  <div class="md:col-start-2 md:row-start-1 md:col-end-2 bg-gray-100 rounded md:h-36 md:place-self-center md:justify-self-center md:p-3">
-                                    <div class="flex flex-row justify-between m-2">
+                                <div class="flex flex-col md:justify-self-end md:w-full ">
+                                    <h1 class="text-2xl md:text-center mb-2 font-medium">${product.title}</h1>
+                                    <div class="w-full">
+                                      <img class="rounded w-full" src="${productImgSrc}" alt="${product.title}" />
+                                    </div>
+                                </div>
+
+                                  <div class="shadow-sm mt-2 mx-auto  md:col-start-2  md:col-end-2 md:row-start-2 md:row-end-2 bg-gray-100 rounded max-w-lg md:h-36 md:place-self-start md:justify-self-center md:p-3">
+                                      <div class="flex flex-row justify-between m-2">
                                         <p class="text-2xl font-bold text-purple-900 md:text-xl">$ ${product.price}</p>
                                         <span class="bi ${favClass} cursor-pointer text-red-800 text-xl" aria-label="add to favourites" data-id="${product.id}"  ></span>
-                                    </div>
+                                      </div>
+
                                       <div class="flex flex-row justify-center">
                                         <button id="add-to-cart" class="btn-yellow order-2 p-3 m-2 w-40 md:text-xs" data-id="${product.id}" data-price=${product.price} >Add to cart</button>
                                         <button class=" btn-gray order-1"> Click & Collect </button>
                                       </div>
+
                                       <div class="flex justify-between items-baseline mx-1"> 
                                         <div class="flex items-baseline">
                                             <span class="bi bi-truck mr-1" aria-label="Delivery time"></span><p class="text-gray-500 text-xs"> 2-3 days </p>
@@ -64,16 +75,17 @@ function displayProduct(container, product) {
                                           <p class="text-xs text-gray-500">In Storage (100+)</p>
                                         </div>
                                       </div>
-                                       
-                                  </div>
+                                    </div>
                                 
-                                  <div class="my-3 md:col-start-2 md:row-start-1 md:row-end-1 md:col-end-2 md:place-self-start md:justify-self-center">
-                                  <div class="bg-gray-100 md:w-full">
-                                    <h2 class="text-l font-medium text-center">Product info</h2>
+                                  <div class="my-3 md:col-start-2 md:col-end-2 md:row-start-1 md:row-end-1 md:place-self-start md:justify-self-center md:max-w-lg">
+                                    <div class="bg-gray-100 md:w-full">
+                                      <h2 class="text-l font-medium text-center">Product info</h2>
                                   </div>
-                                    <p class="leading-relaxed max-w-prose text-gray-700 text-sm">${product.description}</p>
+                                    <div class="md:border-gray-100 md:border-2 md:border-t-0 md:rounded-b md:h-40">
+                                      <p class="leading-relaxed max-w-prose text-gray-700 mx-2 text-sm">${product.description}</p>
+                                    </div>
                                  </div>
-                            </div>
+                          
     `;
   const favButton = document.querySelector("div div div span");
   favButton.addEventListener("click", addToFav);
@@ -109,14 +121,18 @@ async function getSimiliarProducts(id) {
 // create similar products
 function createSimiliarProducts(container, array) {
   array.map((product) => {
-    const productImage = url + `${product.image.formats.small.url}`;
+    let productImgSrc = product.image_url;
+    // if the product dont have a image url go to thumbnail url
+    if (!product.image_url) {
+      productImgSrc = url + `${product.image.formats.thumbnail.url}`;
+    }
     container.innerHTML += `
-                            <div class="flex flex-wrap">
+                            <div class="flex flex-wrap mr-2 max-w-sm">
                                 <div class="flex-row">
                                     <div> 
                                       <a href="product.html?id=${product.id}"
                                         <h5 class="text-m font-medium text-gray-900">${product.title}</h5> 
-                                        <img class="w-40 rounded" src="${productImage}" alt="${product.title}"
+                                        <img class="h-20 md:h-36 rounded" src="${productImgSrc}" alt="${product.title}"
                                      </a>
                                     </div>
                                     <div class="flex justify-between my-2">

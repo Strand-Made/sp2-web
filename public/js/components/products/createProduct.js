@@ -1,5 +1,4 @@
-import { url, saveToStorage, getStorage } from "../api/data.js";
-import messageBox from "../components/messageBox.js";
+import { url, saveToStorage, getStorage } from "../../api/data.js";
 
 function sliceText(text, length) {
   const slicedText = text.slice(length);
@@ -31,12 +30,12 @@ export function createProducts(array, container) {
     container.innerHTML += `
     <div class="flex flex-row justify-center sm:max-w-m sm:mr-3 my-2 sm:flex-col sm:w-52">
       <a class="w-full mr-2" href="product.html?id=${product.id}">
-        <img class="rounded w-full h-48 md:h-52" src="${productImgSrc}" alt="${product.title}"/>
+        <img class="rounded w-full h-full md:h-52" src="${productImgSrc}" alt="${product.title}"/>
       </a>
-      <div class="flex flex-col justify-between w-full sm:flex-grow-0">
+      <div class="flex flex-col justify-between w-full">
           <div class=""> 
               <h5 class="text-l font-medium text-purple-900">${product.title} </h5> 
-               <p class="text-gray-400 text-xs truncate">${productDesc}</p>
+               <p class="text-gray-400 w-36 text-xs truncate">${productDesc}</p>
           </div>
           <div class="flex flex-row justify-between items-baseline space-x-1">
               <p class="font-bold text-l text-purple-900">$ ${product.price} </p>                

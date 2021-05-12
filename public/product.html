@@ -29,14 +29,20 @@
     ></div>
 
     <section id="product" class="">
-      <div class="container px-2 md:mx-auto">
-        <div id="product-container"></div>
+      <div class="container px-2 max-w-screen-lg md:mx-auto">
+        <div
+          class="grid mt-3 md:grid-col-2 w-full"
+          id="product-container"
+        ></div>
       </div>
     </section>
     <section id="suggestions">
-      <div class="container px-2 md:mx-auto border-t-2 my-5">
-        <h3 class="text-xl font-medium text-center">Similar products</h3>
-        <div id="similar-products"></div>
+      <div class="container max-w-screen-xl md:mx-auto border-t-2 my-10">
+        <h3 class="text-l font-medium text-center">Similar products</h3>
+        <div
+          class="flex md:flex-row justify-center flex-wrap"
+          id="similar-products"
+        ></div>
       </div>
     </section>
 
@@ -83,6 +89,6 @@
       </div>
     </footer>
 
-    <script src="./js/product.js" type="module"></script>
+    <script src="./js/pages/productPage/product.js" type="module"></script>
   </body>
 </html>

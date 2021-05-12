@@ -27,17 +27,15 @@
       id="second-nav"
       class="hidden md:flex md:py-1 justify-center bg-gray-200 shadow-inner"
     ></div>
+    <div id="added-to-cart"></div>
     <main class="flex-grow">
       <section class="mx-1" id="products">
-        <div class="container px-2 md:mx-auto">
+        <div class="container max-w-screen-lg px-2 md:mx-auto">
           <h1 class="text-2xl font-bold text-gray-900 text-center">
             Your favourites
           </h1>
           <div class="flex justify-end">
-            <button
-              id="clear-favs"
-              class="bg-red-400 hover:bg-red-500 text-red-50 text-sm p-0.5 rounded shadow-sm"
-            >
+            <button id="clear-favs" class="btn-red text-xs">
               Clear favourites
             </button>
           </div>
@@ -88,6 +86,9 @@
         </div>
       </div>
     </footer>
-    <script src="./js/favourites.js" type="module"></script>
+    <script
+      src="./js/pages/favouritesPage/favourites.js"
+      type="module"
+    ></script>
   </body>
 </html>

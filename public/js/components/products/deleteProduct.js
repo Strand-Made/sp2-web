@@ -1,5 +1,5 @@
 import { url, getToken } from "../../api/data.js";
-import messageBox from "../../components/messageBox.js";
+import messageBox from "../../utilities/messageBox.js";
 
 export async function deleteProduct(id) {
   const deleteButton = document.querySelector("#delete-button");

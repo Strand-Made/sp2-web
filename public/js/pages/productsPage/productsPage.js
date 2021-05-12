@@ -1,7 +1,7 @@
-import { createNav } from "./components/navbar/mainNav.js";
-import { createProducts } from "./data/createProduct.js";
-import { url } from "./api/data.js";
-import messageBox from "./components/messageBox.js";
+import { createNav } from "../../components/navbar/mainNav.js";
+import { createProducts } from "../../components/products/createProduct.js";
+import { url } from "../../api/data.js";
+import messageBox from "../../utilities/messageBox.js";
 
 createNav();
 const container = document.querySelector("#products-container");
