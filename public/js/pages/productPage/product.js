@@ -55,15 +55,15 @@ function displayProduct(container, product) {
                                     </div>
                                 </div>
 
-                                  <div class="shadow-sm mt-2 mx-auto  md:col-start-2  md:col-end-2 md:row-start-2 md:row-end-2 bg-gray-100 rounded max-w-lg md:h-36 md:place-self-start md:justify-self-center md:p-3">
+                                  <div class="shadow-sm w-5/6 mt-2 mx-auto  md:col-start-2  md:col-end-2 md:row-start-2 md:row-end-2 bg-gray-100 rounded max-w-lg md:h-36 md:place-self-start md:justify-self-center md:p-3">
                                       <div class="flex flex-row justify-between m-2">
                                         <p class="text-2xl font-bold text-purple-900 md:text-xl">$ ${product.price}</p>
                                         <span class="bi ${favClass} cursor-pointer text-red-800 text-xl" aria-label="add to favourites" data-id="${product.id}"  ></span>
                                       </div>
 
-                                      <div class="flex flex-row justify-center">
-                                        <button id="add-to-cart" class="btn-yellow order-2 p-3 m-2 w-40 md:text-xs" data-id="${product.id}" data-price=${product.price} >Add to cart</button>
-                                        <button class=" btn-gray order-1"> Click & Collect </button>
+                                      <div class="flex flex-row mx-1 justify-center items-center">
+                                        <button id="add-to-cart" class="btn-yellow text-sm ml-2 order-2 md:text-xs" data-id="${product.id}" data-title="${product.title}" data-price=${product.price} >Add to cart</button>
+                                        <button class="btn-gray text-sm order-1"> Click & Collect </button>
                                       </div>
 
                                       <div class="flex justify-between items-baseline mx-1"> 
@@ -77,11 +77,11 @@ function displayProduct(container, product) {
                                       </div>
                                     </div>
                                 
-                                  <div class="my-3 md:col-start-2 md:col-end-2 md:row-start-1 md:row-end-1 md:place-self-start md:justify-self-center md:max-w-lg">
+                                  <div class="my-3 w-full md:col-start-2 md:col-end-2 md:row-start-1 md:row-end-1 md:place-self-start md:justify-self-center md:max-w-lg">
                                     <div class="bg-gray-100 md:w-full">
                                       <h2 class="text-l font-medium text-center">Product info</h2>
                                   </div>
-                                    <div class="md:border-gray-100 md:border-2 md:border-t-0 md:rounded-b md:h-40">
+                                    <div class=" md:border-gray-100 md:border-2 md:border-t-0 md:rounded-b md:h-40">
                                       <p class="leading-relaxed max-w-prose text-gray-700 mx-2 text-sm">${product.description}</p>
                                     </div>
                                  </div>
@@ -137,7 +137,7 @@ function createSimiliarProducts(container, array) {
                                     </div>
                                     <div class="flex justify-between my-2">
                                         <p class="text-md text-purple-900 font-medium">$ ${product.price} </p>
-                                        <a href="product.html?id=${product.id}" class="btn-yellow cursor-pointer">Buy </a> 
+                                        <a href="product.html?id=${product.id}" class="btn-yellow text-xs py-1 px-2 cursor-pointer">View </a> 
                                     </div>
                                 </div>
                             </div>
