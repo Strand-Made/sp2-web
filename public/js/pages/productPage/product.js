@@ -50,7 +50,7 @@ function displayProduct(container, product) {
   container.innerHTML = `
                                 <div class="flex flex-col md:justify-self-end md:w-full ">
                                     <h1 class="text-2xl md:text-center mb-2 font-medium">${product.title}</h1>
-                                    <div class="w-full">
+                                    <div class="w-full sm:max-w-xl">
                                       <img class="rounded w-full" src="${productImgSrc}" alt="${product.title}" />
                                     </div>
                                 </div>
@@ -129,10 +129,10 @@ function createSimiliarProducts(container, array) {
     container.innerHTML += `
                             <div class="flex flex-wrap mr-2 max-w-sm">
                                 <div class="flex-row">
-                                    <div> 
-                                      <a href="product.html?id=${product.id}"
+                                    <div class=""> 
+                                      <a href="product.html?id=${product.id}">
                                         <h5 class="text-m font-medium text-gray-900">${product.title}</h5> 
-                                        <img class="h-20 md:h-36 rounded" src="${productImgSrc}" alt="${product.title}"
+                                        <img class="h-20 w-36 md:h-36 rounded" src="${productImgSrc}" alt="${product.title}" />
                                      </a>
                                     </div>
                                     <div class="flex justify-between my-2">

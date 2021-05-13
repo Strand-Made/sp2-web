@@ -1,5 +1,5 @@
-import { createNav } from "../../components/navbar.js";
-import messageBox from "../../components/messageBox.js";
+import { createNav } from "../../components/navbar/mainNav.js";
+import messageBox from "../../utilities/messageBox.js";
 import { url, saveToken, saveUser } from "../../api/data.js";
 
 createNav();

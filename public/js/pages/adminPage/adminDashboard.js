@@ -1,4 +1,4 @@
-import { createNav } from "../../components/navbar.js";
+import { createNav } from "../../components/navbar/mainNav.js";
 import { url, getToken } from "../../api/data.js";
 import messageBox from "../../utilities/messageBox.js";
 // create nav
@@ -28,13 +28,26 @@ function postProduct(event) {
   const priceVal = price.value;
   const imageFile = image.value;
   const featuredVal = featured.checked;
+  // Regular expression to test if image url is a url
+  const regexExpression =
+    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
+  const trueUrl = imageFile.match(regexExpression);
+  // if url dont match regex return error
+  if (!trueUrl) {
+    return messageBox(
+      errorContainer,
+      "warning",
+      "Please include a valid image url"
+    );
+  }
+  const prodImg = trueUrl[0];
   // Check if there is values in the inputs
   if (titleVal.length === 0 || descriptionVal.length === 5) {
     return messageBox(errorContainer, "warning", "Please check your values.");
   }
 
-  createNewProduct(titleVal, descriptionVal, priceVal, imageFile, featuredVal);
+  createNewProduct(titleVal, descriptionVal, priceVal, prodImg, featuredVal);
 }
 
 // post new product

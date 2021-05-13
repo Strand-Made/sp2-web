@@ -1,6 +1,6 @@
 import { url, getToken } from "../../api/data.js";
 import { createNav } from "../../components/navbar/mainNav.js";
-import messageBox from "../../components/messageBox.js";
+import messageBox from "../../utilities/messageBox.js";
 import { deleteProduct } from "../../components/products/deleteProduct.js";
 // create nav
 createNav();
@@ -48,6 +48,7 @@ function editProduct(event) {
   const priceValue = price.value;
   const featuredValue = featured.checked;
   const prodIdVal = productId.value;
+
   if (
     titleValue.length === 0 ||
     descriptionValue.length === 10 ||

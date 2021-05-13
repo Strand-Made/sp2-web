@@ -1,6 +1,6 @@
 import { createNav } from "../../components/navbar/mainNav.js";
 import { url, getStorage, clearStorage } from "../../api/data.js";
-import { addItemToCart } from "../../data/createProduct.js";
+import { addItemToCart } from "../../components/products/createProduct.js";
 import messageBox from "../../utilities/messageBox.js";
 
 // create navbar

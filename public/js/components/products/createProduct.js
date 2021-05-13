@@ -30,7 +30,7 @@ export function createProducts(array, container) {
     container.innerHTML += `
     <div class="flex flex-row justify-center sm:max-w-m sm:mr-3 my-2 sm:flex-col sm:w-52">
       <a class="w-full mr-2" href="product.html?id=${product.id}">
-        <img class="rounded w-full h-full md:h-52" src="${productImgSrc}" alt="${product.title}"/>
+        <img class="rounded w-full h-full md:h-40" src="${productImgSrc}" alt="${product.title}"/>
       </a>
       <div class="flex flex-col justify-between w-full">
           <div class=""> 

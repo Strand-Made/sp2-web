@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "postcss css/styles.css -o css/compiled.css"
+    "dev": "postcss build ./public/css/main.css -o ./public/css/output.css",
+    "prod": "NODE_ENV=production tailwindcss build ./public/css/main.css -o ./public/css/output.css"
   },
   "keywords": [],
   "author": "",
