@@ -1,4 +1,4 @@
-import { url, saveToStorage } from "../../api/data.js";
+import { url } from "../../api/data.js";
 import { createProducts } from "../products/createProduct.js";
 import messageBox from "../../utilities/messageBox.js";
 

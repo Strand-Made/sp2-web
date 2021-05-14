@@ -1,9 +1,8 @@
-import { url, saveToStorage, getStorage } from "../../api/data.js";
-
-function sliceText(text, length) {
-  const slicedText = text.slice(length);
-  return slicedText;
-}
+import { url, getStorage } from "../../api/data.js";
+import {
+  addToFav,
+  addItemToCart,
+} from "./product-utilities/productClickActions.js";
 
 export function createProducts(array, container) {
   container.innerHTML = "";
@@ -53,80 +52,14 @@ export function createProducts(array, container) {
                                 
                                 `;
   });
+  // on click add item to favs
   const favButton = document.querySelectorAll("div div div div div span");
   favButton.forEach((button) => {
     button.addEventListener("click", addToFav);
   });
-
+  // on click add item to cart
   const cartButton = document.querySelectorAll("div div div div div button");
   cartButton.forEach((button) => {
     button.addEventListener("click", addItemToCart);
-  });
-}
-
-// Add product to favourites
-export function addToFav() {
-  const favKey = "favourites";
-  this.classList.toggle("bi-heart");
-  this.classList.toggle("bi-heart-fill");
-  const id = this.dataset.id;
-
-  const currentFavs = getStorage(favKey);
-
-  const productExst = currentFavs.find(function (fav) {
-    return fav.id === id;
-  });
-
-  if (!productExst) {
-    const product = {
-      id,
-    };
-    currentFavs.push(product);
-    saveToStorage(favKey, currentFavs);
-  } else {
-    const filteredFavs = currentFavs.filter((favourite) => favourite.id !== id);
-    saveToStorage(favKey, filteredFavs);
-  }
-}
-
-export function addItemToCart() {
-  const cartKey = "cart";
-  const currentCart = getStorage(cartKey);
-  const id = this.dataset.id;
-  const price = this.dataset.price;
-  const title = this.dataset.title;
-
-  const productToAdd = currentCart.find((product) => product.id !== id);
-  const product = {
-    id,
-    price,
-  };
-  if (!productToAdd) {
-    currentCart.push(product);
-  } else {
-    currentCart.push(product);
-  }
-
-  saveToStorage(cartKey, currentCart);
-  // display message that item is addded to cart
-  addedToCartMessage(title);
-}
-
-function addedToCartMessage(product) {
-  const classes =
-    "flex flex-col md:flex-row transition-opacity duration-500 ease-in-out bg-gray-100 shadow-inner p-1 justify-between items-center";
-  const addedToCart = document.querySelector("#added-to-cart");
-  addedToCart.className += `${classes}`;
-  addedToCart.innerHTML = `<p class="text-gray-900 text-sm">
-                            <span class="bi bi-cart-check-fill text-l"></span> 
-                            ${product} added to cart 
-                            </p>
-                            
-                            <a class="btn-yellow font-medium" href="cart.html">Check it out</a>
-                            <button id="remove-msg" class="btn-gray">Keep shopping</button>
-                            `;
-  const removeMessage = document.querySelector("#remove-msg");
-  removeMessage.addEventListener("click", () => {
-    addedToCart.classList.add("hidden");
   });
 }
