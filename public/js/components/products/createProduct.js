@@ -18,7 +18,6 @@ export function createProducts(array, container) {
     if (isFavourite.length) {
       favClass = "bi-heart-fill";
     }
-    let qnty = 1;
 
     let productImgSrc = product.image_url;
     // if the product dont have a image url go to thumbnail url
@@ -44,7 +43,6 @@ export function createProducts(array, container) {
                   <button id="add-to-cart" class="btn-yellow"  
                     data-id="${product.id}" 
                     data-price="${product.price}" 
-                    data-qnty="${qnty}" 
                    data-title="${product.title}">
                     Buy 
                 </button> 
@@ -96,7 +94,6 @@ export function addItemToCart() {
   const currentCart = getStorage(cartKey);
   const id = this.dataset.id;
   const price = this.dataset.price;
-  let qnty = this.dataset.qnty;
   const title = this.dataset.title;
 
   const productToAdd = currentCart.find((product) => product.id !== id);

@@ -46,7 +46,7 @@ export function createNav() {
       <div
         class="container max-w-screen-lg sm:mx-auto px-2 flex flex-wrap items-center justify-between">
         <div class="w-full flex justify-between">
-          <a href="/" class="text-xl font-coconpro text-purple-100">
+          <a href="index.html" class="text-xl font-coconpro text-purple-100">
             HomeSmart
           </a>
           <div class="flex flex-row justify-center sm:hidden">
@@ -92,7 +92,7 @@ export function createNav() {
           </ul>
         </div>
 
-
+         
         <div
           class="hidden sm:hidden flex-grow w-full items-center "
           id="navbar"
@@ -128,7 +128,7 @@ export function createNav() {
       </div>
     `;
 
-  // create logout on click and redirect
+  // logout on btn click
   const logOutBtn = document.querySelector("#logout");
   if (logOutBtn) {
     logOutBtn.addEventListener("click", () => {
