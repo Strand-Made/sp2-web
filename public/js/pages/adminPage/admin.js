@@ -2,6 +2,7 @@ import { createNav } from "../../components/navbar/mainNav.js";
 import messageBox from "../../utilities/messageBox.js";
 import { url, saveToken, saveUser } from "../../api/data.js";
 
+// create navbar
 createNav();
 
 const form = document.querySelector("#login-form");
@@ -38,7 +39,7 @@ async function loggedIn(username, password) {
   try {
     const response = await fetch(newUrl, options);
     const result = await response.json();
-    console.log(result);
+    // if there is a matching user
     if (result.user) {
       saveToken(result.jwt);
       saveUser(result.user);
@@ -51,7 +52,6 @@ async function loggedIn(username, password) {
       );
     }
   } catch (error) {
-    console.log(error);
     messageBox(
       errorContainer,
       "error",

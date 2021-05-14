@@ -1,5 +1,5 @@
-import { url, getToken } from "../../api/data.js";
-import messageBox from "../../utilities/messageBox.js";
+import { url, getToken } from "../../../api/data.js";
+import messageBox from "../../../utilities/messageBox.js";
 
 export async function deleteProduct(id) {
   const deleteButton = document.querySelector("#delete-button");
@@ -7,6 +7,7 @@ export async function deleteProduct(id) {
   const errorContainer = document.querySelector("#form-error");
 
   function handleDelete() {
+    // display prompt to reassure delete action
     (async function () {
       const willDelete = confirm(
         "Deleting this product wil permanently remove it from the api. Proceed?"
@@ -26,7 +27,6 @@ export async function deleteProduct(id) {
         try {
           const response = await fetch(newUrl, options);
           const result = await response.json();
-          console.log(result);
           if (result.title) {
             return messageBox(errorContainer, "success", "Delete Successful");
           }

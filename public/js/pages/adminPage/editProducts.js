@@ -1,7 +1,7 @@
 import { url, getToken } from "../../api/data.js";
 import { createNav } from "../../components/navbar/mainNav.js";
 import messageBox from "../../utilities/messageBox.js";
-import { deleteProduct } from "../../components/products/deleteProduct.js";
+import { deleteProduct } from "../../components/products/product-utilities/deleteProduct.js";
 // create nav
 createNav();
 
@@ -13,6 +13,7 @@ if (!id) {
 }
 
 const form = document.querySelector("#edit-products-form");
+// inputs
 const title = document.querySelector("#product_title");
 const productId = document.querySelector("#product_id");
 const description = document.querySelector("#product_description");
@@ -43,6 +44,7 @@ form.addEventListener("submit", editProduct);
 
 function editProduct(event) {
   event.preventDefault();
+  // input values
   const titleValue = title.value.trim();
   const descriptionValue = description.value.trim();
   const priceValue = price.value;
@@ -68,10 +70,10 @@ function editProduct(event) {
 async function updateProduct(title, description, price, id, featured) {
   let newUrl = url + "/products/" + id;
   const data = JSON.stringify({
-    title: title,
-    description: description,
-    price: price,
-    featured: featured,
+    title,
+    description,
+    price,
+    featured,
   });
   const token = getToken();
 

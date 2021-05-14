@@ -62,6 +62,7 @@ function addedToCartMessage(product) {
                               <a class="btn-yellow font-medium" href="cart.html">Check it out</a>
                               <button id="remove-msg" class="btn-gray">Keep shopping</button>
                               `;
+  // remove message on click
   const removeMessage = document.querySelector("#remove-msg");
   removeMessage.addEventListener("click", () => {
     addedToCart.classList.add("hidden");

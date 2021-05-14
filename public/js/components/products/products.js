@@ -2,9 +2,8 @@ import { url } from "../../api/data.js";
 import { createProducts } from "../products/createProduct.js";
 import messageBox from "../../utilities/messageBox.js";
 
-let featuredList = [];
-
 export async function getProducts(isFeatured, prodContainer) {
+  let featuredList = [];
   let newUrl = url + "/products";
   const container = prodContainer;
   try {
