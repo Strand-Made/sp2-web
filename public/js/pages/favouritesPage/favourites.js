@@ -1,7 +1,7 @@
 import { createNav } from "../../components/navbar/mainNav.js";
 import { url, getStorage } from "../../api/data.js";
 import {
-  clearOnClick,
+  clearFavs,
   createFavProducts,
 } from "./favourite-utilities/favouriteUtilities.js";
 import messageBox from "../../utilities/messageBox.js";
@@ -36,7 +36,7 @@ function getFavourites() {
 
   // clear favourites button
   const clearButton = document.querySelector("#clear-favs");
-  clearButton.addEventListener("click", clearOnClick);
+  clearButton.addEventListener("click", clearFavs);
 
   // If favourites is empty
   if (favourites.length === 0) {

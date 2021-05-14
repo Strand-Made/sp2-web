@@ -79,7 +79,6 @@ async function createNewProduct(title, description, price, image, featured) {
   try {
     const response = await fetch(newUrl, options);
     const result = await response.json();
-    console.log(result);
 
     if (result.title) {
       updateWindow(
