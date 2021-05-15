@@ -59,7 +59,7 @@ function addedToCartMessage(product) {
                               ${product} added to cart 
                               </p>
                               
-                              <a class="btn-yellow font-medium" href="cart.html">Check it out</a>
+                              <a class="btn-yellow font-medium mb-2 sm:mb-0" href="cart.html">Check it out</a>
                               <button id="remove-msg" class="btn-gray">Keep shopping</button>
                               `;
   // remove message on click

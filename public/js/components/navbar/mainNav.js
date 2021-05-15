@@ -94,38 +94,42 @@ export function createNav() {
 
          
         <div
-          class="hidden sm:hidden flex-grow w-full items-center "
+          class="hidden transition-all delay-150 ease-in-out sm:hidden flex-grow w-full items-center"
           id="navbar"
         >
         
-          <ul class="flex flex-col w-full list-none md:hidden text-center text-purple-100">
-          <li class="nav-item hover:bg-purple-300">
-          <a class="font-medium ${
-            pathname === "/public/index.html" ? "font-bold text-purple-50" : ""
-          }" 
-            href="index.html"> Home 
-          </a>
-      </li>
+        <ul class="flex flex-col w-full list-none md:hidden text-center text-purple-100">
             <li class="nav-item hover:bg-purple-300">
-        <a class="font-medium ${
-          pathname === "/public/products.html" ? "font-bold text-purple-50" : ""
-        }" 
-          href="products.html"> 
-          Products 
-          </a>
-      </li>
+            <a class="font-medium ${
+              pathname === "/public/index.html"
+                ? "font-bold text-purple-50"
+                : ""
+            }" 
+              href="index.html"> Home 
+            </a>
+        </li>
+              <li class="nav-item hover:bg-purple-300">
+          <a class="font-medium ${
+            pathname === "/public/products.html"
+              ? "font-bold text-purple-50"
+              : ""
+          }" 
+            href="products.html"> 
+            Products 
+            </a>
+              </li>
       
-      <li class="nav-item hover:bg-purple-300">
-        <a class="font-medium ${
-          pathname === "/public/favourites.html"
-            ? "font-bold text-purple-50"
-            : ""
-        }" href="favourites.html"> Favourites </a>
-      </li>
-    </ul>
+            <li class="nav-item hover:bg-purple-300">
+              <a class="font-medium ${
+                pathname === "/public/favourites.html"
+                  ? "font-bold text-purple-50"
+                  : ""
+              }" href="favourites.html"> Favourites </a>
+          </li>
+        </ul>
         </div>
         
-      </div>
+    </div>
     `;
 
   // logout on btn click
@@ -153,13 +157,6 @@ export function createNav() {
               ? " font-medium text-purple-900"
               : ""
           }" href="products.html">Products</a>
-        </li>
-        <li class="px-3 py-1 text-xs hover:bg-purple-500 hover:text-purple-100 transition-color duration-300 ease-in-out">
-          <a href="about.html ${
-            pathname === "/public/about.html"
-              ? " font-medium text-purple-900"
-              : ""
-          }" class="text-sm">About us</a>
         </li>
       </ul>`;
   // mobile nav toggle
