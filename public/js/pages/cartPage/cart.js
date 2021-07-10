@@ -63,6 +63,14 @@ function clearCart(cartKey) {
   const clearBtn = document.querySelector("section div div #clear-cart");
   clearBtn.addEventListener("click", () => {
     clearStorage(cartKey);
-    window.location.reload();
+    container.innerHTML = `<div class="flex flex-col justify-center items-center">
+                                    <i class="bi bi-emoji-frown-fill text-3xl text-purple-400"> </i>
+                                    <p class="text-gray-900">Your shopping cart is empty</p>
+                                    <div>
+                                        <a class="text-purple-900 font-medium hover:text-gray-700 cursor-pointer" href="products.html">
+                                        Return to shopping
+                                        </a>
+                                </div>
+                            </div>`;
   });
 }
